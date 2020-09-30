@@ -1,0 +1,23 @@
+{
+  "name": "personal_task_manager",
+  "version": "1.0.0",
+  "description": "Personal Task Manager App",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thangaduraicse/personal_task_manager.git"
+  },
+  "keywords": [
+    "React",
+    "Redux"
+  ],
+  "author": "Thangadurai Nainamalai <duraithanga3@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thangaduraicse/personal_task_manager/issues"
+  },
+  "homepage": "https://github.com/thangaduraicse/personal_task_manager#readme"
+}
