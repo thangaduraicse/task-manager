@@ -1,3 +1,5 @@
-const sum = (a, b) => a + b;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './pages/Base/App'
 
-console.log('===> Sum (1, 2)', sum(1,2));
+ReactDOM.render(<App />, document.getElementById('root'));
