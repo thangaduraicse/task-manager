@@ -2,10 +2,13 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/index.jsx',
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js'
+    },
+    resolve: {
+        extensions: ['.js', '.json', '.jsx', '.css', '.scss']
     },
     module: {
         rules: [
