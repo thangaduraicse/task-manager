@@ -13,3 +13,5 @@ How to setup ssh in Github?
 Presets can be defined in two ways.
 1. create .babelrc and add the configuration - best way
 2. Update it in package.json
+
+Why webpack bundle.js dependent on contentBase?
