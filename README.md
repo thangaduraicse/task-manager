@@ -5,6 +5,8 @@ This is a sample React+Redux application
 1. npm install webpack --save-dev
 2. npm install webpack-dev-server --save-dev
 
+Browser sources about webpack//
+
 What is Yarn/NPM difference?
 How to raise and resolve git issues?
 What is license in Github?

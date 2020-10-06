@@ -1,0 +1,20 @@
+// .eot (embedded opentype) - Used by IE browser
+// .woff2 - Used by modern browsers
+// .woff - Most of modern browsers
+// .ttf - True type (Mainly for mobile devices like safari, android)
+// .svg - Legacy IOS
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto Italic';
+    src: url('/fonts/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+}

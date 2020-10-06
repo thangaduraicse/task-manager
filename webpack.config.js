@@ -27,12 +27,11 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.css$/,
-                    // style-loader but all css into bundle.js. It will not create seperate style.
-                    use: ['style-loader', 'css-loader']
+                    use: ['style-loader', {loader: 'css-loader', options: {url: false}}]
                 },
                 {
                     test: /\.scss$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader']
+                    use: ['style-loader', {loader: 'css-loader', options: {url: false}}, 'sass-loader']
                 }
             ]
         },
