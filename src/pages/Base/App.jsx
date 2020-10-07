@@ -1,4 +1,9 @@
-import React from 'react';
+// How hot reloading is working?
+// Hot reloading is nothing but Injecting the new version of source files dynamically (runtime)
+// whenever we update the Component, its state will be preserved and wont reset
+
+import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import Header from '../../components/Header/Header';
 
 class App extends React.Component {
@@ -14,4 +19,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default hot(App);

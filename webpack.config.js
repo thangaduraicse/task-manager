@@ -1,3 +1,9 @@
+// Webpack dev server creates two sections in developer tools 'Soruces'
+// 1. localhost:<PORT> => Actual application running in the port. With help of this, we can able to view the UI in browser.
+// 2. webpack:// => Socket connection established between my app and browser.
+// What is the use of webpack:// (point 2)?
+// With help of socket connection, we are loading all supporting libraries to run our app on certain port number with dev mode supports like hot reloading, mapping the bundled modules to the actual src file... etc. The main purpose of this support libraries to enable debugging mode with more declaritive error messages
+
 const path = require('path');
 
 module.exports = (env) => {
@@ -37,7 +43,8 @@ module.exports = (env) => {
         },
         devServer: {
             contentBase: path.join(__dirname, 'public'),
-            port: 3000
+            port: 3000,
+            hot: true
         }
     };
 };
