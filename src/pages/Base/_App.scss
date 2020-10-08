@@ -1,3 +1,24 @@
 * {
     font-family: "Roboto Regular", Arial, Helvetica, sans-serif;
 }
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header, .container {
+    display: flex;
+}
+
+header {
+    height: 56px;
+}
+
+.container {
+    height: 500px;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: auto;
+}

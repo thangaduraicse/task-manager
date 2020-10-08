@@ -4,16 +4,16 @@
 
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
-import Header from '../../components/Header/Header';
+import { Header } from 'components';
+// import {default as Home} from '../Home/Home';
+import Home from '../Home/Home';
 
 class App extends React.Component {
     render() {
         return (
             <React.Fragment>
                 <Header />
-                <div>This is personal task manager</div>
-                <div>Added</div>
-                <div>Added 5</div>
+                <Home />
             </React.Fragment>
         );
     }

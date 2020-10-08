@@ -1,5 +1,6 @@
 header {
-    height: 56px;
-    background: purple;
-    color: white;
+    align-items: center;
+    justify-content: center;
+    background: $colors-core-primary;
+    color: $colors-greyscale-white;
 }
