@@ -13,7 +13,9 @@ class App extends React.Component {
         return (
             <React.Fragment>
                 <Header />
-                <Home />
+                <section className="container">
+                    <Home />
+                </section>
             </React.Fragment>
         );
     }

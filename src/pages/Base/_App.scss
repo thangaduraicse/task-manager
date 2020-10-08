@@ -1,7 +1,15 @@
 * {
     font-family: "Roboto Regular", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+
+    @media screen and ($device-medium) {
+        font-size: 16px;
+        line-height: 24px;
+    }
 }
 
+// Start: Layout creation
 #root {
     display: flex;
     flex-direction: column;
@@ -22,3 +30,4 @@ header {
     flex-direction: column;
     overflow: auto;
 }
+// End: Layout creation
