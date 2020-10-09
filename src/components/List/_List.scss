@@ -1,0 +1,9 @@
+.components-list {
+    width: 240px;
+    border: 1px solid $colors-greyscale-darker;
+    padding: 7px;
+
+    @media screen and ($device-medium) {
+        padding: 15px;
+    }
+}

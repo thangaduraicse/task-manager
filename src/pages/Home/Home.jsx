@@ -1,24 +1,39 @@
 import React from 'react';
-import {Button, Card} from 'components';
+import {List} from 'components';
 
 class Home extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            lists: {}
+        };
+
+        this.createNewList = this.createNewList.bind(this);
+    }
+
+    createNewList({listName}) {
+        this.setState(prevState => ({
+            lists: {
+                ...prevState.list,
+                [listName]: []
+            }
+        }));
+    }
+
     render () {
+        const {lists} = this.state;
+
         return (
             <React.Fragment>
-                <Card title="Card title" imgSrc="/assets/images/thumbs_up.png" />
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta tempor enim, eget euismod justo dignissim nec. Nulla massa odio, ultricies non placerat vitae, fringilla eu mi. Nulla id mi id ipsum faucibus venenatis. Nam vitae euismod justo. Quisque nec neque in ante eleifend sodales vel a dui. Curabitur ultrices odio ac ullamcorper sodales. Donec ut nibh hendrerit, efficitur lorem at, porttitor ligula. Vivamus varius ex ut pulvinar rhoncus. Nam lacinia, lorem in fermentum feugiat, velit ante sollicitudin odio, ac eleifend magna diam et diam. Morbi venenatis ante vel consectetur aliquam. Curabitur commodo feugiat ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui purus, facilisis at quam eu, commodo mollis dolor. Praesent sed vehicula nisl, non laoreet magna. Suspendisse potenti. Nunc tristique sapien eget fringilla euismod.</p>
-                <p>Ut condimentum ante eu velit sagittis, elementum aliquam tellus auctor. Nullam turpis tellus, dictum non consectetur nec, tristique ac purus. Proin at ex vel odio blandit fringilla vel commodo elit. Quisque et nisi eu sem hendrerit congue. Aliquam et erat massa. Pellentesque non venenatis velit, id gravida ex. Quisque non purus ut ex eleifend tristique vel sit amet tortor. Vivamus at enim nisi. Vestibulum finibus, tellus a feugiat eleifend, sem augue rutrum magna, dictum congue neque tortor vitae nunc. Vestibulum vestibulum, urna nec porta sagittis, nibh mauris porttitor lacus, ac facilisis tellus libero nec ex. Quisque a porttitor augue, a facilisis ex.</p>
-                <p>Nam hendrerit aliquam est, non feugiat odio viverra in. Quisque venenatis dui odio, vitae tristique odio placerat id. Aliquam mollis tincidunt mattis. Proin condimentum est et convallis blandit. In sit amet tellus ullamcorper, fermentum urna ut, maximus odio. Morbi molestie libero arcu, eget auctor lacus scelerisque a. Suspendisse placerat non augue et pulvinar. Suspendisse viverra ultrices feugiat. Fusce id arcu aliquet, consectetur mi eu, pharetra diam. Vivamus a nisl ligula. Donec est metus, iaculis et odio id, mattis facilisis mauris.</p>
-                <p>Nulla porta volutpat egestas. Cras tortor eros, volutpat a venenatis nec, condimentum in dui. Nunc at varius risus. Fusce sed sem neque. Fusce porttitor neque sed nibh volutpat posuere. Cras faucibus sagittis varius. Donec ac ante efficitur, volutpat dolor et, mollis sapien. Pellentesque condimentum, neque consectetur pretium posuere, tellus urna ultricies erat, sed sollicitudin diam justo ac massa. Curabitur at diam dignissim nisi dictum tempor id dapibus nunc. Sed pharetra neque sed tellus aliquet cursus.</p>
-                <p>Cras turpis magna, lobortis quis mollis a, blandit non enim. Nunc vehicula metus quis mauris dictum, ut malesuada tellus rhoncus. Sed vestibulum semper dapibus. Vivamus pretium mauris velit, ut lacinia lorem interdum vitae. Fusce ullamcorper urna sit amet laoreet tincidunt. Nunc sit amet nisi sem. Mauris pulvinar metus vulputate erat tempus pulvinar. Etiam id est luctus, dignissim tellus sed, rhoncus nibh. Praesent quis augue laoreet, aliquam risus a, feugiat mauris. Sed convallis tempus ex.</p>
-                <p>Ut vel turpis orci. Vivamus suscipit ac orci eget rhoncus. Phasellus at dignissim eros, eget facilisis leo. Maecenas et ex nunc. Sed sed tellus at felis convallis fringilla. Sed et dignissim mauris. Donec id ullamcorper augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas pretium lacus enim, quis dapibus nisi pretium sit amet. Proin id quam id lorem ultricies interdum. Morbi lectus turpis, imperdiet in enim interdum, tempus tempus turpis.</p>
-                <p>Etiam eros ex, condimentum vitae turpis in, mollis malesuada diam. Nam at turpis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lacus dolor, laoreet dapibus malesuada et, tempor a tortor. Sed vitae pellentesque nunc, sit amet placerat erat. Vestibulum sed enim ac velit cursus hendrerit eget vel neque. Nullam et neque neque. Vestibulum rhoncus lectus mi, et pretium lectus interdum quis. Aliquam sagittis sit amet erat mollis tincidunt. Curabitur eget imperdiet dui, nec varius arcu. Mauris vulputate ligula eget augue auctor commodo. Curabitur faucibus nisl elit, a posuere eros facilisis vitae. Pellentesque tincidunt porta tellus ut lacinia.</p>
-                <p>Nam tincidunt, magna et consectetur tincidunt, tellus risus feugiat justo, sed posuere massa augue eu lectus. Sed cursus, turpis id pharetra suscipit, turpis enim interdum leo, non malesuada sapien ex non diam. Donec sed arcu venenatis, vehicula velit eget, rhoncus nunc. Nunc sagittis dictum metus, in pellentesque nisi tempor vel. Suspendisse egestas facilisis nisl, in congue ipsum vehicula vitae. Nam sed erat eu ligula ultricies consequat vitae convallis quam. Mauris vel ullamcorper lorem, eu efficitur erat. Suspendisse faucibus turpis at orci pharetra elementum. Sed nec erat ligula. Fusce ut dignissim ante. Nunc dictum mauris sit amet justo consectetur, quis finibus orci tempor. In hac habitasse platea dictumst. Cras pulvinar maximus libero non dictum. Sed egestas orci nec eros hendrerit scelerisque. Donec vitae ex suscipit, condimentum nibh ut, feugiat ex.</p>
-                <p>Quisque aliquet leo id lorem fermentum, non mattis erat convallis. Integer vel sodales lacus. Vivamus vitae lacinia dolor, sed consequat ex. Pellentesque placerat nisl ligula, interdum iaculis justo auctor ut. Vivamus urna nulla, blandit vitae porttitor ut, laoreet eget nibh. Pellentesque sed quam porttitor, eleifend dui a, pulvinar arcu. Curabitur iaculis augue eget magna congue, sit amet posuere magna fringilla. Curabitur quis quam nec felis imperdiet vestibulum sit amet ut turpis. Vestibulum nec mattis dui. Suspendisse congue, ligula at iaculis maximus, turpis nunc ullamcorper diam, sed imperdiet justo nunc eget nibh. Pellentesque sollicitudin diam ut orci rutrum, in interdum purus blandit. Sed sit amet pharetra erat. Fusce finibus, magna sit amet molestie scelerisque, erat tortor pellentesque nisl, eget dapibus felis massa non enim. Pellentesque sem est, hendrerit at consequat porta, rutrum in ligula. Vestibulum euismod sit amet neque ut ultricies. Nunc feugiat leo eu tincidunt consequat.</p>
-                <p>Suspendisse posuere vehicula ante, vel convallis turpis semper ut. Duis finibus neque sodales semper ullamcorper. Duis blandit lorem a vulputate commodo. Vivamus eleifend, nunc eu convallis ullamcorper, est tortor mollis arcu, sed ornare orci urna in mauris. Vivamus eros neque, ornare sed lacus vel, sollicitudin mattis massa. Sed lacinia elit nisl, a scelerisque nulla pellentesque nec. Vivamus aliquam metus ac dolor hendrerit lacinia. Suspendisse bibendum dapibus quam sed gravida. Ut non arcu vitae sapien congue elementum. Aenean sed odio vel libero volutpat molestie sed sed felis.</p>
+                {
+                    Object.entries(lists).map(([listName, listEntries]) => (
+                        <List key={listName} name={listName} entries={listEntries} />
+                    ))
+                }
+                <List addNewList createNewList={this.createNewList} />
             </React.Fragment>
-        )
+        );
     }
 }
 
