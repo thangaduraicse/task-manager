@@ -1,12 +1,11 @@
 import React from 'react';
-import {Button} from 'components';
+import {Button, Card} from 'components';
 
 class Home extends React.Component {
     render () {
         return (
             <React.Fragment>
-                <Button>Delete the list</Button>
-                <Button styleType="action">Add new card...</Button>
+                <Card title="Card title" imgSrc="/assets/images/thumbs_up.png" />
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta tempor enim, eget euismod justo dignissim nec. Nulla massa odio, ultricies non placerat vitae, fringilla eu mi. Nulla id mi id ipsum faucibus venenatis. Nam vitae euismod justo. Quisque nec neque in ante eleifend sodales vel a dui. Curabitur ultrices odio ac ullamcorper sodales. Donec ut nibh hendrerit, efficitur lorem at, porttitor ligula. Vivamus varius ex ut pulvinar rhoncus. Nam lacinia, lorem in fermentum feugiat, velit ante sollicitudin odio, ac eleifend magna diam et diam. Morbi venenatis ante vel consectetur aliquam. Curabitur commodo feugiat ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui purus, facilisis at quam eu, commodo mollis dolor. Praesent sed vehicula nisl, non laoreet magna. Suspendisse potenti. Nunc tristique sapien eget fringilla euismod.</p>
                 <p>Ut condimentum ante eu velit sagittis, elementum aliquam tellus auctor. Nullam turpis tellus, dictum non consectetur nec, tristique ac purus. Proin at ex vel odio blandit fringilla vel commodo elit. Quisque et nisi eu sem hendrerit congue. Aliquam et erat massa. Pellentesque non venenatis velit, id gravida ex. Quisque non purus ut ex eleifend tristique vel sit amet tortor. Vivamus at enim nisi. Vestibulum finibus, tellus a feugiat eleifend, sem augue rutrum magna, dictum congue neque tortor vitae nunc. Vestibulum vestibulum, urna nec porta sagittis, nibh mauris porttitor lacus, ac facilisis tellus libero nec ex. Quisque a porttitor augue, a facilisis ex.</p>

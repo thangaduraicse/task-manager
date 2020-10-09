@@ -9,6 +9,14 @@
     }
 }
 
+p {
+    margin: 0 0 16px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
 // Start: Layout creation
 #root {
     display: flex;

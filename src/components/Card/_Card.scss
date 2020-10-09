@@ -1,0 +1,8 @@
+.components-card {
+    background: $colors-greyscale-lightest;
+    padding: 7px;
+
+    @media screen and ($device-medium) {
+        padding: 15px;
+    }
+}
