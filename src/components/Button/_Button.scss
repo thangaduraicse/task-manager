@@ -2,11 +2,11 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    padding: 7px 12px;
     border: 0 none;
     outline: 0 none;
 
     &.primary {
+        padding: 7px 12px;
         background-color: $colors-greyscale-light;
         color: $colors-greyscale-black;
         text-align: center;
@@ -17,6 +17,7 @@
     }
 
     &.action {
+        padding: 7px 0;
         background-color: $colors-greyscale-white;
         color: $colors-greyscale-black;
         text-align: left;

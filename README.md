@@ -49,3 +49,7 @@ Mod-proxy referer: https://ms.server.com
 
 Dev
 Browser(https://localhost:3000/bundle.js, http://localhost:3000/api/prescriber) => (http://localhost:3000)Webpack dev server(express 1. content (index.html, bundle.js), 2. proxy('/api/prescriber' --> https://ms.com/v1/prescriber)) => MS ('/v1/prescriber' => 'https://business.com/prescriber') => business
+
+
+How to achieve flex wrap in existing design?
+Explain this in more declaritive way to venkat

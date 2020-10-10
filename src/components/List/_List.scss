@@ -1,7 +1,27 @@
 .components-list {
+    flex-shrink: 0;
     width: 240px;
     border: 1px solid $colors-greyscale-darker;
     padding: 7px;
+
+    + .components-list {
+        margin-left: 15px;
+
+        @media screen and ($device-medium) {
+            margin-left: 30px;
+        }
+    }
+
+    &-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 7px;
+
+        @media screen and ($device-medium) {
+            margin-bottom: 15px;
+        }
+    }
 
     @media screen and ($device-medium) {
         padding: 15px;

@@ -6,33 +6,52 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-            lists: {}
+            lists: []
         };
 
         this.createNewList = this.createNewList.bind(this);
+        this.deleteList = this.deleteList.bind(this);
     }
 
-    createNewList({listName}) {
-        this.setState(prevState => ({
-            lists: {
-                ...prevState.list,
-                [listName]: []
-            }
+    createNewList(list) {
+        // list contains unique id and list name
+        this.setState(({lists}) => ({
+            lists: [...lists, list]
         }));
+    }
+
+    deleteList(id) {
+        const {lists} = this.state,
+            index = lists.findIndex(list => list.id === id);
+
+        this.setState({
+            lists: [
+                ...lists.slice(0, index),
+                ...lists.slice(index + 1)
+            ]
+        });
+
+        // this.setState(({lists}) => ({
+        //     lists: lists.filter(list => list.id != id)
+        // }));
     }
 
     render () {
         const {lists} = this.state;
 
         return (
-            <React.Fragment>
+            <div className="dynamic-list">
                 {
-                    Object.entries(lists).map(([listName, listEntries]) => (
-                        <List key={listName} name={listName} entries={listEntries} />
+                    lists.map(list => (
+                        <List
+                            deleteList={this.deleteList}
+                            key={list.id}
+                            list={list}
+                        />
                     ))
                 }
                 <List addNewList createNewList={this.createNewList} />
-            </React.Fragment>
+            </div>
         );
     }
 }
