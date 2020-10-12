@@ -1,16 +1,23 @@
 import React from 'react';
-import {List} from 'components';
+import {List, ToggleSwitch} from 'components';
+
+const COPY = {
+    HORIZONTAL_VIEW: 'Horizontal view',
+    VERTICAL_VIEW: 'Vertical view'
+};
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            horizontalView: false,
             lists: []
         };
 
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
+        this.onToggle = this.onToggle.bind(this);
     }
 
     createNewList(list) {
@@ -36,11 +43,20 @@ class Home extends React.Component {
         // }));
     }
 
+    onToggle(event) {
+        const {target: {checked: horizontalView}} = event;
+
+        this.setState({horizontalView});
+    }
+
     render () {
-        const {lists} = this.state;
+        const {horizontalView, lists} = this.state;
 
         return (
-            <div className="dynamic-list horizontal">
+            <div className={horizontalView && "dynamic-list horizontal" || "dynamic-list"}>
+                <ToggleSwitch onToggle={this.onToggle}>
+                    {horizontalView && COPY.HORIZONTAL_VIEW || COPY.VERTICAL_VIEW}
+                </ToggleSwitch>
                 {
                     lists.map(list => (
                         <div key={list.id}>
