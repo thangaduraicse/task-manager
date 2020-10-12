@@ -1,3 +1,7 @@
 .dynamic-list {
     display: flex;
+
+    &.horizontal {
+        flex-flow: row wrap;
+    }
 }

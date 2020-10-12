@@ -40,7 +40,7 @@ class Home extends React.Component {
         const {lists} = this.state;
 
         return (
-            <div className="dynamic-list">
+            <div className="dynamic-list horizontal">
                 {
                     lists.map(list => (
                         <div key={list.id}>
