@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
+import Card from '../Card/Card';
 
 const COPY = {
     ADD_NEW_CARD: 'Add new card...',
@@ -12,14 +14,26 @@ class List extends React.Component {
         super(props);
 
         this.state = {
+            count: 1,
             cards: []
         };
 
         this.handleDeleteList = this.handleDeleteList.bind(this);
+        this.handleAddNewCard = this.handleAddNewCard.bind(this);
     }
 
     handleAddNewCard() {
-        console.log('====> Add a new card');
+        this.setState(({cards, count}) => {
+            const cardObj = {
+                id: uuidv4(),
+                title: `Card ${count}`
+            };
+
+            return ({
+                cards: [...cards, cardObj],
+                count: count + 1
+            });
+        });
     }
 
     handleDeleteList() {
@@ -29,7 +43,8 @@ class List extends React.Component {
     }
 
     render() {
-        const {list} = this.props;
+        const {list} = this.props,
+            {cards} = this.state;
 
         return (
             <article className="components-list">
@@ -40,6 +55,7 @@ class List extends React.Component {
                         {COPY.DELETE_LIST}
                     </Button>
                 </div>
+                {cards.map(card => <Card key={card.id} title={card.title} />)}
                 <Button
                     styleType="action"
                     onClick={this.handleAddNewCard}>
