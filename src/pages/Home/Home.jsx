@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, ToggleSwitch} from 'components';
+import {AddNewList, List, ToggleSwitch} from 'components';
 
 const COPY = {
     HORIZONTAL_VIEW: 'Horizontal view',
@@ -68,7 +68,7 @@ class Home extends React.Component {
                     ))
                 }
                 <div>
-                    <List addNewList createNewList={this.createNewList} />
+                    <AddNewList createNewList={this.createNewList} />
                 </div>
             </div>
         );
