@@ -11,7 +11,7 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-            horizontalView: false,
+            toggle: false,
             lists: []
         };
 
@@ -44,18 +44,18 @@ class Home extends React.Component {
     }
 
     onToggle(event) {
-        const {target: {checked: horizontalView}} = event;
+        const {target: {checked: toggle}} = event;
 
-        this.setState({horizontalView});
+        this.setState({toggle});
     }
 
     render () {
-        const {horizontalView, lists} = this.state;
+        const {lists, toggle} = this.state;
 
         return (
-            <div className={horizontalView && "dynamic-list horizontal" || "dynamic-list"}>
+            <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
                 <ToggleSwitch onToggle={this.onToggle}>
-                    {horizontalView && COPY.HORIZONTAL_VIEW || COPY.VERTICAL_VIEW}
+                    {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
                 </ToggleSwitch>
                 {
                     lists.map(list => (

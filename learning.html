@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning fle</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            color: black;
+        }
+
+        .test1, .test2, .test3, .test4, .test5, .test6 {
+            height: 200px;
+        }
+
+        .test1 {
+            background-color: red;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        .test2 {
+            background-color: green;
+        }
+
+        .test3 {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <!-- by default => position: static => render element in the order which is how we wrote -->
+    <div class="test1">
+        <h1>heading 1</h1>
+        <h2>sub heading 1</h2>
+        <p>paragraph 1</p>
+    </div>
+    <div class="test2">
+        <h1>heading 2</h1>
+        <h2>sub heading 2</h2>
+        <div>
+            <h3>Level 3 heading 2</h3>
+            <p>paragraph 2</p>
+        </div>
+        <p>paragraph 3</p>
+    </div>
+    <div class="test3">
+        <h1>heading 3</h1>
+        <h2>sub heading 3</h2>
+        <p>paragraph 3</p>
+    </div>
+    <div class="test4">
+        <h1>heading 1</h1>
+        <h2>sub heading 1</h2>
+        <p>paragraph 1</p>
+    </div>
+    <div class="test5">
+        <h1>heading 2</h1>
+        <h2>sub heading 2</h2>
+        <div>
+            <h3>Level 3 heading 2</h3>
+            <p>paragraph 2</p>
+        </div>
+        <p>paragraph 3</p>
+    </div>
+    <div class="test6">
+        <h1>heading 3</h1>
+        <h2>sub heading 3</h2>
+        <p>paragraph 3</p>
+    </div>
+</body>
+</html>

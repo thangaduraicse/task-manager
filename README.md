@@ -53,3 +53,7 @@ Browser(https://localhost:3000/bundle.js, http://localhost:3000/api/prescriber) 
 
 How to achieve flex wrap in existing design?
 Explain this in more declaritive way to venkat
+
+&:after, &:before {
+    
+}
