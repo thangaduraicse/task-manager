@@ -14,8 +14,7 @@ class List extends React.Component {
         super(props);
 
         this.state = {
-            count: 1,
-            cards: []
+            count: 0
         };
 
         this.handleDeleteList = this.handleDeleteList.bind(this);
@@ -23,16 +22,17 @@ class List extends React.Component {
     }
 
     handleAddNewCard() {
-        this.setState(({cards, count}) => {
-            const cardObj = {
-                id: uuidv4(),
-                title: `Card ${count}`
-            };
+        const {createNewCard, list: {id}} = this.props,
+                {count} = this.state;
 
-            return ({
-                cards: [...cards, cardObj],
-                count: count + 1
-            });
+        const cardObj = {
+            id: uuidv4(),
+            title: `Card ${count}`
+        };
+
+        createNewCard(cardObj, id);
+        this.setState({
+            count: count + 1
         });
     }
 
@@ -43,8 +43,7 @@ class List extends React.Component {
     }
 
     render() {
-        const {list} = this.props,
-            {cards} = this.state;
+        const {cards, list} = this.props;
 
         return (
             <article className="components-list">
@@ -66,7 +65,13 @@ class List extends React.Component {
     }
 }
 
+List.defaultProps = {
+    cards: []
+};
+
 List.propTypes = {
+    cards: PropTypes.array,
+    createNewCard: PropTypes.func,
     deleteList: PropTypes.func,
     list: PropTypes.object
 };
