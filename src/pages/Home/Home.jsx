@@ -11,7 +11,7 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-            lists: {},
+            lists: [],
             cards: [],
             listCardMapping: {},
             toggle: false,
@@ -52,54 +52,38 @@ class Home extends React.Component {
         // }
         // list contains unique id and list name
         this.setState(({lists}) => ({
-            lists: {
-                ...lists,
-                [list.id]: list
-            }
+            lists: [...lists, list]
         }));
     }
 
     deleteList(id) {
         // lists = [{id: uniqueId1, name: 'List 1'}, {id: uniqueId2, name: 'List 2'}...]
-        // const {lists} = this.state,
-        //     index = lists.findIndex(list => list.id === id);
-
-        // this.setState({
-        //     lists: [
-        //         ...lists.slice(0, index),
-        //         ...lists.slice(index + 1)
-        //     ]
-        // });
-
-        // this.setState(({lists}) => ({
-        //     lists: lists.filter(list => list.id != id)
-        // }));
-
         // lists = {
         //     uniqueId1: {id: uniqueId1, name: 'List 1'},
         //     uniqueId2: {id: uniqueId2, name: 'List 2'}
         //     uniqueId3: {id: uniqueId2, name: 'List 3'}
         //     uniqueId4: {id: uniqueId2, name: 'List 4'}
         // }
-
-        // Removing Object Properties with Destructuring
-        let {
+        const {
             cards,
-            lists: { [id]: omitList, ...otherLists },
-            listCardMapping
-        } = this.state;
-
-        if(listCardMapping[id]) {
-            cards = cards.filter(card => !listCardMapping[id].includes(card.id));
-        }
-
-        const { [id]: omitListCardMapping, ...otherListCardMapping } = listCardMapping;
+            listCardMapping: {[id]: deletedListCardMapping, ...otherListCardMapping},
+            lists
+        } = this.state,
+        index = lists.findIndex(list => list.id === id);
 
         this.setState({
-            cards,
-            lists: otherLists,
-            listCardMapping: otherListCardMapping
+            cards: deletedListCardMapping
+                && cards.filter(({id}) => deletedListCardMapping.includes(id)) || cards,
+            listCardMapping: otherListCardMapping,
+            lists: [
+                ...lists.slice(0, index),
+                ...lists.slice(index + 1)
+            ]
         });
+
+        // this.setState(({lists}) => ({
+        //     lists: lists.filter(list => list.id != id)
+        // }));
     }
 
     getCards(listId) {
@@ -129,10 +113,10 @@ class Home extends React.Component {
                     {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
                 </ToggleSwitch>
                 {
-                    Object.entries(lists).map(([listId, list]) => (
-                        <div key={listId}>
+                    lists.map(list => (
+                        <div key={list.id}>
                             <List
-                                cards={this.getCards(listId)}
+                                cards={this.getCards(list.id)}
                                 createNewCard={this.createNewCard}
                                 deleteList={this.deleteList}
                                 list={list}
