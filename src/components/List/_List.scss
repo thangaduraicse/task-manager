@@ -9,7 +9,11 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 7px;
-    }
+
+        ~ .action {
+            margin-top: 7px;
+        }
+    }    
 
     @media screen and ($device-medium) {
         padding: 15px;
@@ -17,6 +21,10 @@
 
         &-heading {
             margin-bottom: 15px;
+
+            ~ .action {
+                margin-top: 15px;
+            }
         }
     }
 }

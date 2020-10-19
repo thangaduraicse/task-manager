@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Droppable} from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
 import Card from '../Card/Card';
@@ -54,7 +55,19 @@ class List extends React.Component {
                         {COPY.DELETE_LIST}
                     </Button>
                 </div>
-                {cards.map(card => <Card key={card.id} title={card.title} />)}
+                <Droppable droppableId={list.id}>
+                    {
+                        provided => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {cards.map((card, index) => <Card key={card.id} card={card} index={index} />)}
+                                {provided.placeholder}
+                            </div>
+                        )
+                    }
+                </Droppable>
                 <Button
                     styleType="action"
                     onClick={this.handleAddNewCard}>

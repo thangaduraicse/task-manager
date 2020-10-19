@@ -1,4 +1,5 @@
 import React from 'react';
+import {DragDropContext} from 'react-beautiful-dnd';
 import {AddNewList, List, ToggleSwitch} from 'components';
 
 const COPY = {
@@ -20,6 +21,9 @@ class Home extends React.Component {
         this.createNewCard = this.createNewCard.bind(this);
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
+        this.handleDragStart = this.handleDragStart.bind(this);
+        this.handleDragUpdate = this.handleDragUpdate.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
         this.onToggle = this.onToggle.bind(this);
     }
 
@@ -96,6 +100,18 @@ class Home extends React.Component {
         return cards.filter(card => listCardMapping[listId].includes(card.id));
     }
 
+    handleDragStart(result) {
+        console.log('On Drag Start: Result - ', result);
+    }
+
+    handleDragUpdate(result) {
+        console.log('On Drag Update: Result - ', result);
+    }
+
+    handleDragEnd(result) {
+        console.log('On Drag End: Result - ', result);
+    }
+
     onToggle(event) {
         const {target: {checked: toggle}} = event;
 
@@ -108,26 +124,32 @@ class Home extends React.Component {
         console.log('this.state <Home /> 108:', this.state);
 
         return (
-            <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
-                <ToggleSwitch onToggle={this.onToggle}>
-                    {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
-                </ToggleSwitch>
-                {
-                    lists.map(list => (
-                        <div key={list.id}>
-                            <List
-                                cards={this.getCards(list.id)}
-                                createNewCard={this.createNewCard}
-                                deleteList={this.deleteList}
-                                list={list}
-                            />
-                        </div>
-                    ))
-                }
-                <div>
-                    <AddNewList createNewList={this.createNewList} />
+            <DragDropContext
+                onDragStart = {this.handleDragStart}
+                onDragUpdate = {this.handleDragUpdate}
+                onDragEnd = {this.handleDragEnd}
+            >
+                <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
+                    <ToggleSwitch onToggle={this.onToggle}>
+                        {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
+                    </ToggleSwitch>
+                    {
+                        lists.map(list => (
+                            <div key={list.id}>
+                                <List
+                                    cards={this.getCards(list.id)}
+                                    createNewCard={this.createNewCard}
+                                    deleteList={this.deleteList}
+                                    list={list}
+                                />
+                            </div>
+                        ))
+                    }
+                    <div>
+                        <AddNewList createNewList={this.createNewList} />
+                    </div>
                 </div>
-            </div>
+            </DragDropContext>
         );
     }
 }

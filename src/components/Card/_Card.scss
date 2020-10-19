@@ -6,19 +6,11 @@
         margin-top: 7px;
     }
 
-    &:last-of-type {
-        margin-bottom: 7px;
-    }
-
     @media screen and ($device-medium) {
         padding: 15px;
 
         & + .components-card  {
             margin-top: 15px;
-        }
-
-        &:last-of-type {
-            margin-bottom: 15px;
         }
     }
 }
