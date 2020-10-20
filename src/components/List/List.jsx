@@ -74,7 +74,7 @@ class List extends React.Component {
                     {COPY.ADD_NEW_CARD}
                 </Button>
             </article>
-        )
+        );
     }
 }
 

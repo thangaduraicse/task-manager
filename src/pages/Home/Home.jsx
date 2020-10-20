@@ -13,7 +13,7 @@ class Home extends React.Component {
 
         this.state = {
             lists: [],
-            cards: [],
+            cards: {},
             listCardMapping: {},
             toggle: false,
         };
@@ -21,8 +21,6 @@ class Home extends React.Component {
         this.createNewCard = this.createNewCard.bind(this);
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
-        this.handleDragStart = this.handleDragStart.bind(this);
-        this.handleDragUpdate = this.handleDragUpdate.bind(this);
         this.handleDragEnd = this.handleDragEnd.bind(this);
         this.onToggle = this.onToggle.bind(this);
     }
@@ -43,7 +41,10 @@ class Home extends React.Component {
         }
 
         this.setState({
-            cards: [...cards, card],
+            cards: {
+                ...cards,
+                [card.id]: card
+            },
             listCardMapping
         });
     }
@@ -70,14 +71,14 @@ class Home extends React.Component {
         // }
         const {
             cards,
-            listCardMapping: {[id]: deletedListCardMapping, ...otherListCardMapping},
+            listCardMapping: {[id]: deletedCardIds, ...otherListCardMapping},
             lists
         } = this.state,
         index = lists.findIndex(list => list.id === id);
 
         this.setState({
-            cards: deletedListCardMapping
-                && cards.filter(({id}) => deletedListCardMapping.includes(id)) || cards,
+            cards: deletedCardIds
+                && deletedCardIds.map(cardId => cards[cardId]) || cards,
             listCardMapping: otherListCardMapping,
             lists: [
                 ...lists.slice(0, index),
@@ -91,25 +92,74 @@ class Home extends React.Component {
     }
 
     getCards(listId) {
-        const { cards, listCardMapping } = this.state;
+        const { cards, listCardMapping: {[listId]: cardIds} } = this.state;
 
-        if (!listCardMapping[listId]) {
+        if (!cardIds) {
             return [];
         }
 
-        return cards.filter(card => listCardMapping[listId].includes(card.id));
-    }
-
-    handleDragStart(result) {
-        console.log('On Drag Start: Result - ', result);
-    }
-
-    handleDragUpdate(result) {
-        console.log('On Drag Update: Result - ', result);
+        return cardIds.map(cardId => cards[cardId]);
     }
 
     handleDragEnd(result) {
-        console.log('On Drag End: Result - ', result);
+        // {
+        //     "draggableId": "cebecc64-81b0-4de8-8a92-ae22bcc5c0b0",
+        //     "type": "DEFAULT",
+        //     "source": {
+        //       "index": 0,
+        //       "droppableId": "21e84e48-9004-4d25-bd91-52a3cd0f4101"
+        //     },
+        //     "reason": "DROP",
+        //     "mode": "FLUID",
+        //     "destination": {
+        //       "droppableId": "9d8f0742-0b6f-4f15-a3cb-9249ffd7811b",
+        //       "index": 0
+        //     },
+        //     "combine": null
+        // }
+
+        let {listCardMapping} = this.state;
+        const {
+            destination,
+            draggableId,
+            source: {index: sourceIndex, droppableId: sourceDroppableId}
+        } = result;
+
+        if (!destination) {
+            return;
+        }
+
+        const {index: destinationIndex, droppableId: destinationDroppableId} = destination;
+
+        if (
+            sourceDroppableId === destinationDroppableId &&
+            sourceIndex === destinationIndex
+        ) {
+            return;
+        }
+
+        if (
+            sourceDroppableId === destinationDroppableId &&
+            sourceIndex !== destinationIndex
+        ) {
+            const newCardIds = listCardMapping[sourceDroppableId];
+
+            newCardIds.splice(sourceIndex, 1); // remove from existing array
+            newCardIds.splice(destinationIndex, 0, draggableId); // re-add in the destination index with draggable id
+            listCardMapping[sourceDroppableId] = newCardIds;
+        } 
+        else {
+            const sourceCardIds = listCardMapping[sourceDroppableId],
+                    destinationCardIds = listCardMapping[destinationDroppableId];
+
+            sourceCardIds.splice(sourceIndex, 1);
+            destinationCardIds.splice(destinationIndex, 0, draggableId);
+
+            listCardMapping[sourceDroppableId] = sourceCardIds;
+            listCardMapping[destinationDroppableId] = destinationCardIds;
+        }
+
+        this.setState({ listCardMapping });
     }
 
     onToggle(event) {
@@ -121,14 +171,8 @@ class Home extends React.Component {
     render () {
         const {lists, toggle} = this.state;
 
-        console.log('this.state <Home /> 108:', this.state);
-
         return (
-            <DragDropContext
-                onDragStart = {this.handleDragStart}
-                onDragUpdate = {this.handleDragUpdate}
-                onDragEnd = {this.handleDragEnd}
-            >
+            <DragDropContext onDragEnd = {this.handleDragEnd}>
                 <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
                     <ToggleSwitch onToggle={this.onToggle}>
                         {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
