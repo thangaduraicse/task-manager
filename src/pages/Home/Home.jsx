@@ -75,10 +75,13 @@ class Home extends React.Component {
             lists
         } = this.state,
         index = lists.findIndex(list => list.id === id);
+        
+        // Shallow copy the cards object
+        const newCards = Object.assign({}, cards);
+        deletedCardIds.map(cardId => delete newCards[cardId]);
 
         this.setState({
-            cards: deletedCardIds
-                && deletedCardIds.map(cardId => cards[cardId]) || cards,
+            cards: newCards,
             listCardMapping: otherListCardMapping,
             lists: [
                 ...lists.slice(0, index),
