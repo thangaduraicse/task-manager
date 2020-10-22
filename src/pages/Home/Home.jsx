@@ -1,8 +1,9 @@
 import React from 'react';
 import {DragDropContext} from 'react-beautiful-dnd';
-import {AddNewList, List, ToggleSwitch} from 'components';
+import {AddNewList, Button, List, Modal, ToggleSwitch} from 'components';
 
 const COPY = {
+    CLOSE_MODAL_BUTTON: 'Close',
     HORIZONTAL_VIEW: 'Horizontal view',
     VERTICAL_VIEW: 'Vertical view'
 };
@@ -16,12 +17,14 @@ class Home extends React.Component {
             cards: {},
             listCardMapping: {},
             toggle: false,
+            modalProps: null
         };
 
         this.createNewCard = this.createNewCard.bind(this);
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
         this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);
         this.onToggle = this.onToggle.bind(this);
     }
 
@@ -57,7 +60,8 @@ class Home extends React.Component {
         // }
         // list contains unique id and list name
         this.setState(({lists}) => ({
-            lists: [...lists, list]
+            lists: [...lists, list],
+            modalProps: 'dummy'
         }));
     }
 
@@ -165,6 +169,12 @@ class Home extends React.Component {
         this.setState({ listCardMapping });
     }
 
+    handleModalClose() {
+        this.setState({
+            modalProps: null
+        });
+    }
+
     onToggle(event) {
         const {target: {checked: toggle}} = event;
 
@@ -172,31 +182,45 @@ class Home extends React.Component {
     }
 
     render () {
-        const {lists, toggle} = this.state;
+        const {lists, modalProps, toggle} = this.state;
 
         return (
-            <DragDropContext onDragEnd = {this.handleDragEnd}>
-                <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
-                    <ToggleSwitch onToggle={this.onToggle}>
-                        {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
-                    </ToggleSwitch>
-                    {
-                        lists.map(list => (
-                            <div key={list.id}>
-                                <List
-                                    cards={this.getCards(list.id)}
-                                    createNewCard={this.createNewCard}
-                                    deleteList={this.deleteList}
-                                    list={list}
-                                />
-                            </div>
-                        ))
-                    }
-                    <div>
-                        <AddNewList createNewList={this.createNewList} />
+            <React.Fragment>
+                <DragDropContext onDragEnd = {this.handleDragEnd}>
+                    <div className={toggle && "dynamic-list vertical" || "dynamic-list"}>
+                        <ToggleSwitch onToggle={this.onToggle}>
+                            {toggle && COPY.VERTICAL_VIEW || COPY.HORIZONTAL_VIEW}
+                        </ToggleSwitch>
+                        {
+                            lists.map(list => (
+                                <div key={list.id}>
+                                    <List
+                                        cards={this.getCards(list.id)}
+                                        createNewCard={this.createNewCard}
+                                        deleteList={this.deleteList}
+                                        list={list}
+                                    />
+                                </div>
+                            ))
+                        }
+                        <div>
+                            <AddNewList createNewList={this.createNewList} />
+                        </div>
                     </div>
-                </div>
-            </DragDropContext>
+                </DragDropContext>
+                {
+                    modalProps && (
+                        <Modal>
+                            <div>Modal Placeholder</div>
+                            <Button
+                                styleType="action"
+                                onClick={this.handleModalClose}>
+                                {COPY.CLOSE_MODAL_BUTTON}
+                            </Button>
+                        </Modal>
+                    )
+                }
+            </React.Fragment>
         );
     }
 }

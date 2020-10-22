@@ -1,0 +1,19 @@
+#root.overlay-open {
+    background: rgba(0, 0, 0, 0.65);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.overlay {
+    background: $colors-greyscale-white;
+    z-index: 1;
+    width: calc(100% - 20%);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    transition: width 5s;
+    transition-timing-function: linear;
+}

@@ -57,3 +57,10 @@ Explain this in more declaritive way to venkat
 &:after, &:before {
     
 }
+
+What is bind do?
+let take an example "this.handleClick = this.handleClick.bind(this);". Here, 'this' inside the function is refer to Component Instance. Its simply binding 'some object' (eg; this - Component Instance) to the function. you can bind any object like that.
+
+Why bind 'this' required?
+'this' depends how it is called, not how/where it is created. Alternatively, 'this' is always pointed to object onto which method invoked. The reason behind bind is, we call that method in child component something like ```this.props.handleClick();``` where the props is immutable one, so, this will return undefined.
+
