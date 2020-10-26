@@ -9,7 +9,39 @@ import { Header } from 'components';
 import Home from '../Home/Home';
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            error: null,
+            errorInfo: null
+        };
+    }
+
+    componentDidCatch(error, errorInformation) {
+        this.setState({
+            error,
+            errorInfo
+        });
+
+        console.log('----> Error: ', error);
+        console.log('----> Error Information', errorInformation);
+    }
+
     render() {
+        const { error, errorInfo } = this.state;
+
+        if (error) {
+            return (
+                <React.Fragment>
+                    <h1>Something went wrong. Error details are as below</h1>
+                    <code>
+                        {errorInfo}
+                    </code>
+                </React.Fragment>
+            );
+        }
+
         return (
             <React.Fragment>
                 <Header />
