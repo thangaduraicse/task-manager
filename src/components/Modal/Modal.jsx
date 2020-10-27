@@ -58,7 +58,7 @@ class Modal extends React.Component {
 }
 
 Modal.defaultProps = {
-    className: ''
+    className: 'default'
 }
 
 

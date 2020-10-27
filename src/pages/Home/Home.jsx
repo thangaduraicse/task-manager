@@ -1,9 +1,9 @@
 import React from 'react';
 import {DragDropContext} from 'react-beautiful-dnd';
-import {AddNewList, Button, List, Modal, ToggleSwitch} from 'components';
+import {AddNewList, List, ToggleSwitch} from 'components';
+import HomeOverlay, {HOME_OVERLAY_TYPES} from './HomeOverlay';
 
 const COPY = {
-    CLOSE_MODAL_BUTTON: 'Close',
     HORIZONTAL_VIEW: 'Horizontal view',
     VERTICAL_VIEW: 'Vertical view'
 };
@@ -17,52 +17,66 @@ class Home extends React.Component {
             cards: {},
             listCardMapping: {},
             toggle: false,
-            modalProps: null
+            modalProps: null,
+            modalName: ''
         };
 
         this.createNewCard = this.createNewCard.bind(this);
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
         this.handleDragEnd = this.handleDragEnd.bind(this);
-        this.handleModalClose = this.handleModalClose.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this)
+        this.handleModalSave = this.handleModalSave.bind(this);
         this.onToggle = this.onToggle.bind(this);
     }
 
-    createNewCard(card, listId) {
-        let {cards, listCardMapping} = this.state;
+    createNewCard(listId) {
+        // let {cards, listCardMapping} = this.state;
 
         // listCardMapping = {
         //     listUniqueId1: [cardUniqueId1, cardUniqueId2, cardUniqueId3, cardUniqueId4],
         //     listUniqueId2: [cardUniqueId1, cardUniqueId2, cardUniqueId3]
         // }
 
-        if (listCardMapping[listId]) {
-            listCardMapping[listId].push(card.id);
-        }
-        else {
-            listCardMapping[listId] = [card.id];
-        }
+        // if (listCardMapping[listId]) {
+        //     listCardMapping[listId].push(card.id);
+        // }
+        // else {
+        //     listCardMapping[listId] = [card.id];
+        // }
+
+        // this.setState({
+        //     cards: {
+        //         ...cards,
+        //         [card.id]: card
+        //     },
+        //     listCardMapping
+        // });
 
         this.setState({
-            cards: {
-                ...cards,
-                [card.id]: card
-            },
-            listCardMapping
+            modalName: HOME_OVERLAY_TYPES.CARD_OVERLAY,
+            modalProps: {
+                listId
+            }
         });
     }
 
-    createNewList(list) {
+    createNewList() {
         // lists = [{id: uniqueId1, name: 'List 1'}, {id: uniqueId2, name: 'List 2'}].. (chaqnged like below)
         // lists = {
         //     uniqueId1: {id: uniqueId1, name: 'List 1'},
         //     uniqueId2: {id: uniqueId2, name: 'List 2'}
         // }
         // list contains unique id and list name
-        this.setState(({lists}) => ({
-            lists: [...lists, list],
-            modalProps: 'dummy'
-        }));
+        // this.setState(({lists}) => ({
+        //     lists: [...lists, list],
+        //     modalProps: 'dummy'
+        // }));
+
+        this.setState({
+            modalName: HOME_OVERLAY_TYPES.LIST_OVERLAY,
+            modalProps: {}
+        });
     }
 
     deleteList(id) {
@@ -168,11 +182,44 @@ class Home extends React.Component {
 
         this.setState({ listCardMapping });
     }
-
+    
     handleModalClose() {
         this.setState({
+            modalName: '',
             modalProps: null
         });
+    }
+
+    handleModalSave(obj) {
+        const {modalName} = this.state;
+
+        if (modalName === HOME_OVERLAY_TYPES.CARD_OVERLAY) {
+            let {cards, listCardMapping} = this.state;
+            
+            if (listCardMapping[obj.listId]) {
+                listCardMapping[obj.listId] = [
+                    listCardMapping[obj.listId],
+                    obj.id
+                ];
+            }
+            else {
+                listCardMapping[obj.listId] = [obj.id];
+            }
+
+            this.setState({
+                cards: {
+                    ...cards,
+                    [obj.id]: obj
+                },
+                listCardMapping
+            });
+        }
+
+        if (modalName === HOME_OVERLAY_TYPES.LIST_OVERLAY) {
+            this.setState(({lists}) => ({
+                lists: [...lists, obj]
+            }));
+        }
     }
 
     onToggle(event) {
@@ -182,7 +229,7 @@ class Home extends React.Component {
     }
 
     render () {
-        const {lists, modalProps, toggle} = this.state;
+        const {lists, modalName, modalProps, toggle} = this.state;
 
         return (
             <React.Fragment>
@@ -208,18 +255,12 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </DragDropContext>
-                {
-                    modalProps && (
-                        <Modal>
-                            <div>Modal Placeholder</div>
-                            <Button
-                                styleType="action"
-                                onClick={this.handleModalClose}>
-                                {COPY.CLOSE_MODAL_BUTTON}
-                            </Button>
-                        </Modal>
-                    )
-                }
+                <HomeOverlay
+                    handleClose={this.handleModalClose}
+                    handleSave={this.handleModalSave}
+                    modalName={modalName}
+                    modalProps={modalProps}
+                />
             </React.Fragment>
         );
     }

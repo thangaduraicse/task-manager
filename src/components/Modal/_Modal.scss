@@ -12,54 +12,24 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     .components-modal {
         background: $colors-greyscale-white;
-        width: calc(100% - 10%);
-        height: 100vh;
         overflow: auto;
-        animation-name: animateRightToLeft10;
-        animation-duration: 1s;
+        margin-top: 56px;
 
-        @media screen and ($device-medium) {
-            width: calc(100% - 25%);
-            animation-name: animateRightToLeft25;
+        &.default {
+            width: 320px;
+            height: 480px;
+
+            @media screen and ($device-medium) {
+                width: 640px;
+            }
+
+            @media screen and ($device-large) {
+                width: 820px;
+            }
         }
-
-        @media screen and ($device-large) {
-            width: calc(100% - 40%);
-            animation-name: animateRightToLeft40;
-        }
-    }
-}
-
-@keyframes animateRightToLeft10 {
-    0% {
-        width: 0;
-    }
-
-    100% {
-        width: calc(100% - 10%);
-    }
-}
-
-@keyframes animateRightToLeft25 {
-    0% {
-        width: 0;
-    }
-
-    100% {
-        width: calc(100% - 25%);
-    }
-}
-
-@keyframes animateRightToLeft40 {
-    0% {
-        width: 0;
-    }
-
-    100% {
-        width: calc(100% - 40%);
     }
 }

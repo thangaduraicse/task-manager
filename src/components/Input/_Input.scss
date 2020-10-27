@@ -1,0 +1,15 @@
+.components-input {
+    input {
+        max-width: 280px;
+        width: 100%;
+        border: 1px solid $colors-greyscale-darker;
+        border-radius: 2px;
+        height: 32px;
+        line-height: 32px;
+        outline: 0 none;
+
+        &.focussed {
+            border-color: $colors-core-secondary;
+        }
+    }
+}

@@ -6,3 +6,34 @@
         justify-content: center;
     }
 }
+
+.home-overlay-modal {
+    width: 320px;
+    height: 165px;
+    padding: 12px;
+
+    h1 {
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        margin: 4px;
+    }
+
+    .button-group {
+        margin-top: 12px;
+
+        button + button {
+            margin-left: 24px;
+        }
+    }
+
+    @media screen and ($device-medium) {
+        padding: 24px;
+
+        .button-group {
+            margin-top: 24px;
+        }
+    }
+}

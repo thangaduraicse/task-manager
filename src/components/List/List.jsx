@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Droppable} from 'react-beautiful-dnd';
-import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
 import Card from '../Card/Card';
 
@@ -14,27 +13,14 @@ class List extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            count: 0
-        };
-
-        this.handleDeleteList = this.handleDeleteList.bind(this);
         this.handleAddNewCard = this.handleAddNewCard.bind(this);
+        this.handleDeleteList = this.handleDeleteList.bind(this);
     }
 
     handleAddNewCard() {
-        const {createNewCard, list: {id}} = this.props,
-                {count} = this.state;
+        const {createNewCard, list: {id}} = this.props;
 
-        const cardObj = {
-            id: uuidv4(),
-            title: `Card ${count}`
-        };
-
-        createNewCard(cardObj, id);
-        this.setState({
-            count: count + 1
-        });
+        createNewCard(id);
     }
 
     handleDeleteList() {
@@ -49,7 +35,7 @@ class List extends React.Component {
         return (
             <article className="components-list">
                 <div className="components-list-heading">
-                    <p>{list.name}</p>
+                    <p>{list.title}</p>
                     <Button
                         onClick={this.handleDeleteList}>
                         {COPY.DELETE_LIST}
