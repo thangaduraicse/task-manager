@@ -6,6 +6,11 @@
 
 const path = require('path');
 
+// Code splitting - Will multiple bundle js
+// Minfiying strategy - Webpack 4 itself will provide default minification. We have add configuration to minimise code in more efficient way. eg: removing console log. Yes - UglifyJSPlugin, TerserPlugin.
+// CSS extraction - At the moment, all the css bundled into single file called bundle.js. With help css extract plugin, we can extract css to seperate file. Yes - ExtractCSSPlugin, MiniCSSExtractPlugin
+// Templating strategy - html-webpack-plugin
+
 module.exports = (env) => {
     const prod = env && env.production;
 
