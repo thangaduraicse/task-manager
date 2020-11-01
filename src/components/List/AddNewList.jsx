@@ -8,13 +8,13 @@ const COPY = {
 
 class AddNewList extends React.Component {
     render() {
-        const {createNewList} = this.props;
+        const {handleAddNewList} = this.props;
 
         return (
             <article className="components-list">
                 <Button
                     styleType="action"
-                    onClick={createNewList}>
+                    onClick={handleAddNewList}>
                     {COPY.ADD_NEW_LIST}
                 </Button>
             </article>
@@ -23,7 +23,7 @@ class AddNewList extends React.Component {
 }
 
 AddNewList.propTypes = {
-    createNewList: PropTypes.func
+    handleAddNewList: PropTypes.func
 };
 
 export default AddNewList;

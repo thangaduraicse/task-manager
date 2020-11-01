@@ -1,7 +1,7 @@
 import React from 'react';
 import {DragDropContext} from 'react-beautiful-dnd';
-import {AddNewList, List, ToggleSwitch} from 'components';
-import HomeOverlay, {HOME_OVERLAY_TYPES} from './HomeOverlay';
+import {AddNewList, Button, List, Modal, ToggleSwitch} from 'components';
+import ListOverlay from './ListOverlay';
 
 const COPY = {
     HORIZONTAL_VIEW: 'Horizontal view',
@@ -17,16 +17,15 @@ class Home extends React.Component {
             cards: {},
             listCardMapping: {},
             toggle: false,
-            modalProps: null,
-            modalName: ''
+            showListOverlay: false
         };
 
         this.createNewCard = this.createNewCard.bind(this);
         this.createNewList = this.createNewList.bind(this);
         this.deleteList = this.deleteList.bind(this);
+        this.handleAddNewList = this.handleAddNewList.bind(this);
         this.handleDragEnd = this.handleDragEnd.bind(this);
-        this.handleModalClose = this.handleModalClose.bind(this)
-        this.handleModalSave = this.handleModalSave.bind(this);
+        this.handleListOverlayClose = this.handleListOverlayClose.bind(this);
         this.onToggle = this.onToggle.bind(this);
     }
 
@@ -68,15 +67,9 @@ class Home extends React.Component {
         //     uniqueId2: {id: uniqueId2, name: 'List 2'}
         // }
         // list contains unique id and list name
-        // this.setState(({lists}) => ({
-        //     lists: [...lists, list],
-        //     modalProps: 'dummy'
-        // }));
-
-        this.setState({
-            modalName: HOME_OVERLAY_TYPES.LIST_OVERLAY,
-            modalProps: {}
-        });
+        this.setState(({lists}) => ({
+            lists: [...lists, list]
+        }));
     }
 
     deleteList(id) {
@@ -120,6 +113,10 @@ class Home extends React.Component {
         }
 
         return cardIds.map(cardId => cards[cardId]);
+    }
+
+    handleAddNewList() {
+        this.setState({showListOverlay: true});
     }
 
     handleDragEnd(result) {
@@ -182,11 +179,10 @@ class Home extends React.Component {
 
         this.setState({ listCardMapping });
     }
-    
-    handleModalClose() {
+
+    handleListOverlayClose() {
         this.setState({
-            modalName: '',
-            modalProps: null
+            showListOverlay: false
         });
     }
 
@@ -229,7 +225,7 @@ class Home extends React.Component {
     }
 
     render () {
-        const {lists, modalName, modalProps, toggle} = this.state;
+        const {lists, showListOverlay, toggle} = this.state;
 
         return (
             <React.Fragment>
@@ -251,16 +247,17 @@ class Home extends React.Component {
                             ))
                         }
                         <div>
-                            <AddNewList createNewList={this.createNewList} />
+                            <AddNewList handleAddNewList={this.handleAddNewList} />
                         </div>
                     </div>
                 </DragDropContext>
-                <HomeOverlay
-                    handleClose={this.handleModalClose}
-                    handleSave={this.handleModalSave}
-                    modalName={modalName}
-                    modalProps={modalProps}
-                />
+                {
+                    showListOverlay &&
+                        <ListOverlay
+                            handleClose={this.handleListOverlayClose}
+                            handleSave={this.createNewList}
+                        />
+                }
             </React.Fragment>
         );
     }
