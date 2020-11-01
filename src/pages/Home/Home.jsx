@@ -1,6 +1,6 @@
 import React from 'react';
 import {DragDropContext} from 'react-beautiful-dnd';
-import {AddNewList, Button, List, Modal, ToggleSwitch} from 'components';
+import {AddNewList, List, ToggleSwitch} from 'components';
 import CardOverlay from './CardOverlay';
 import ListOverlay from './ListOverlay';
 
@@ -33,38 +33,31 @@ class Home extends React.Component {
         this.onToggle = this.onToggle.bind(this);
     }
 
-    createNewCard(listId) {
-        // let {cards, listCardMapping} = this.state;
+    createNewCard(card, listId) {
+        let {cards, listCardMapping} = this.state;
 
         // listCardMapping = {
         //     listUniqueId1: [cardUniqueId1, cardUniqueId2, cardUniqueId3, cardUniqueId4],
         //     listUniqueId2: [cardUniqueId1, cardUniqueId2, cardUniqueId3]
         // }
 
-        // if (listCardMapping[listId]) {
-        //     listCardMapping[listId].push(card.id);
-        // }
-        // else {
-        //     listCardMapping[listId] = [card.id];
-        // }
-
-        // this.setState({
-        //     cards: {
-        //         ...cards,
-        //         [card.id]: card
-        //     },
-        //     listCardMapping
-        // });
+        if (listCardMapping[listId]) {
+            listCardMapping[listId].push(card.id);
+        }
+        else {
+            listCardMapping[listId] = [card.id];
+        }
 
         this.setState({
-            modalName: HOME_OVERLAY_TYPES.CARD_OVERLAY,
-            modalProps: {
-                listId
-            }
+            cards: {
+                ...cards,
+                [card.id]: card
+            },
+            listCardMapping
         });
     }
 
-    createNewList() {
+    createNewList(list) {
         // lists = [{id: uniqueId1, name: 'List 1'}, {id: uniqueId2, name: 'List 2'}].. (chaqnged like below)
         // lists = {
         //     uniqueId1: {id: uniqueId1, name: 'List 1'},
@@ -196,38 +189,6 @@ class Home extends React.Component {
         this.setState({
             showListOverlay: false
         });
-    }
-
-    handleModalSave(obj) {
-        const {modalName} = this.state;
-
-        if (modalName === HOME_OVERLAY_TYPES.CARD_OVERLAY) {
-            let {cards, listCardMapping} = this.state;
-            
-            if (listCardMapping[obj.listId]) {
-                listCardMapping[obj.listId] = [
-                    listCardMapping[obj.listId],
-                    obj.id
-                ];
-            }
-            else {
-                listCardMapping[obj.listId] = [obj.id];
-            }
-
-            this.setState({
-                cards: {
-                    ...cards,
-                    [obj.id]: obj
-                },
-                listCardMapping
-            });
-        }
-
-        if (modalName === HOME_OVERLAY_TYPES.LIST_OVERLAY) {
-            this.setState(({lists}) => ({
-                lists: [...lists, obj]
-            }));
-        }
     }
 
     onToggle(event) {

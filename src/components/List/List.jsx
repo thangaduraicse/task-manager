@@ -35,7 +35,7 @@ class List extends React.Component {
         return (
             <article className="components-list">
                 <div className="components-list-heading">
-                    <p>{list.title}</p>
+                    <p>{list.name}</p>
                     <Button
                         onClick={this.handleDeleteList}>
                         {COPY.DELETE_LIST}
