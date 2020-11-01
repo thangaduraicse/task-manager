@@ -18,9 +18,9 @@ class List extends React.Component {
     }
 
     handleAddNewCard() {
-        const {createNewCard, list: {id}} = this.props;
+        const {handleAddNewCard, list} = this.props;
 
-        createNewCard(id);
+        handleAddNewCard(list);
     }
 
     handleDeleteList() {
@@ -70,9 +70,9 @@ List.defaultProps = {
 
 List.propTypes = {
     cards: PropTypes.array,
-    createNewCard: PropTypes.func,
-    deleteList: PropTypes.func,
-    list: PropTypes.object
+    deleteList: PropTypes.func.isRequired,
+    handleAddNewCard: PropTypes.func.isRequired,
+    list: PropTypes.object.isRequired
 };
 
 export default List;
